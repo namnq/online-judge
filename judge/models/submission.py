@@ -115,6 +115,8 @@ class Submission(models.Model):
         return Submission.USER_DISPLAY_CODES.get(self.short_status, '')
 
     def judge(self, *args, **kwargs):
+        if self.is_locked:
+            return
         judge_submission(self, *args, **kwargs)
 
     judge.alters_data = True
